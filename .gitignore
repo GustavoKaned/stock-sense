@@ -1,0 +1,32 @@
+# XAMPP
+xampp/
+htdocs/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Configurações locais
+.env
+.env.local
+
+# Banco de dados local
+*.sqlite
+*.sqlite3
+
+# Backups
+*.bak
+*.backup
+# Credenciais do banco
+database/conexao.local.php

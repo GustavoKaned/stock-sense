@@ -1,0 +1,354 @@
+/* =====================================================
+   DASHBOARD
+   Apenas o que é exclusivo desta página.
+   Botões, cards, barras e etiquetas vêm de base.css.
+===================================================== */
+
+/* -----------------------------------------------------
+   1. INDICADORES (KPIs)
+----------------------------------------------------- */
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+.kpi {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.kpi:hover {
+  border-color: var(--borda-forte);
+  box-shadow: var(--sombra-md);
+}
+
+.kpi-icone {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--azul-suave);
+  color: var(--azul);
+}
+
+/* O ícone acompanha o significado do indicador */
+.kpi.livre   .kpi-icone { background: var(--livre-bg);   color: var(--livre); }
+.kpi.atencao .kpi-icone { background: var(--atencao-bg); color: var(--atencao); }
+.kpi.cheia   .kpi-icone { background: var(--cheia-bg);   color: var(--cheia); }
+
+.kpi-dados { min-width: 0; width: 100%; }
+.kpi-dados .barra-progresso { margin-top: 12px; height: 5px; }
+.kpi-valor { overflow-wrap: anywhere; }
+.escopo-nota { color: var(--texto-fraco); font-size: 12px; margin: -6px 0 22px; }
+.escopo-nota i { margin-right: 5px; }
+.escopo-nota strong { color: var(--texto-medio); }
+.alerta-estoque { border-left: 3px solid var(--atencao); }
+.alerta-estoque .card-corpo { padding-block: 16px; }
+.bloco-status { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; font-weight: 600; color: var(--texto-medio); }
+.bloco-volume { color: var(--texto-medio); font-size: 12px; font-variant-numeric: tabular-nums; }
+.bloco.atencao { border-top: 3px solid var(--atencao); }
+.bloco.cheia { border-top: 3px solid var(--cheia); }
+.bloco.livre { border-top: 3px solid var(--livre); }
+.bloco.parcial { border-top: 3px solid var(--parcial); }
+@media (min-width: 681px) and (max-width: 1200px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi { flex-direction: row; }
+}
+
+.kpi-rotulo {
+  font-size: 12px;
+  color: var(--texto-medio);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.kpi-valor {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.kpi-valor small {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--texto-fraco);
+  margin-left: 2px;
+}
+
+.kpi-nota {
+  font-size: 12px;
+  color: var(--texto-fraco);
+  margin-top: 2px;
+}
+
+/* -----------------------------------------------------
+   2. TAXA DE OCUPAÇÃO GERAL
+----------------------------------------------------- */
+
+.taxa-cabecalho {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.taxa-valor {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.taxa-legenda {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--texto-medio);
+  flex-wrap: wrap;
+}
+
+.taxa-legenda b {
+  color: var(--texto);
+  font-variant-numeric: tabular-nums;
+}
+
+/* -----------------------------------------------------
+   3. MAPA DO ESTOQUE
+----------------------------------------------------- */
+
+.mapa {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.bloco {
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-sm);
+  padding: 18px;
+  background: var(--superficie);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform var(--transicao), box-shadow var(--transicao),
+              border-color var(--transicao);
+}
+
+.bloco:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-md);
+  border-color: var(--borda-forte);
+}
+
+/* Faixa colorida no topo indica o nível de ocupação */
+.bloco-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.bloco-codigo {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.bloco-pct {
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bloco-setor {
+  font-size: 11.5px;
+  color: var(--texto-fraco);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bloco.livre   .bloco-pct { color: var(--livre); }
+.bloco.parcial .bloco-pct { color: var(--parcial); }
+.bloco.atencao .bloco-pct { color: var(--atencao); }
+.bloco.cheia   .bloco-pct { color: var(--cheia); }
+
+/* -----------------------------------------------------
+   4. LEGENDA
+----------------------------------------------------- */
+
+.legenda {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 13px var(--pad);
+  border-top: 1px solid var(--borda);
+  background: var(--fundo);
+  font-size: 12.5px;
+  color: var(--texto-medio);
+}
+
+.legenda div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legenda i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legenda .livre   { background: var(--livre); }
+.legenda .parcial { background: var(--parcial); }
+.legenda .atencao { background: var(--atencao); }
+.legenda .cheia   { background: var(--cheia); }
+
+@media (max-width: 680px) {
+  .mapa { grid-template-columns: minmax(0, 1fr); }
+  .kpi-valor { font-size: 22px; }
+}
+
+/* -----------------------------------------------------
+   5. SELETOR DE GALPÃO
+----------------------------------------------------- */
+
+.filtro-galpoes {
+  display: flex;
+  gap: 9px;
+  margin-bottom: var(--gap);
+  overflow-x: auto;
+  padding-bottom: 3px;
+  scrollbar-width: thin;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-pill);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--texto-medio);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color var(--transicao), background var(--transicao),
+              color var(--transicao);
+}
+
+.chip i { font-size: 12px; color: var(--texto-fraco); }
+
+.chip b {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  background: var(--fundo);
+  border-radius: var(--raio-pill);
+  padding: 1px 8px;
+  color: var(--texto-medio);
+}
+
+.chip:hover {
+  border-color: var(--borda-forte);
+  color: var(--texto);
+}
+
+/* Galpão selecionado */
+.chip.ativo {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+}
+
+.chip.ativo i,
+.chip.ativo b { color: #fff; }
+.chip.ativo b { background: rgba(255, 255, 255, .22); }
+[data-tema="escuro"] .chip.ativo { background: #255bc5; border-color: #255bc5; }
+
+/* Bolinha colorida indicando o nível de ocupação do galpão */
+.chip .ponto.livre   { color: var(--livre); }
+.chip .ponto.parcial { color: var(--parcial); }
+.chip .ponto.atencao { color: var(--atencao); }
+.chip .ponto.cheia   { color: var(--cheia); }
+
+/* Nome do galpão no indicador — menor que um número */
+.kpi-valor.galpao-nome {
+  font-size: 18px;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* -----------------------------------------------------
+   6. GRUPO DE GALPÃO NO MAPA
+----------------------------------------------------- */
+
+.grupo-galpao + .grupo-galpao {
+  border-top: 1px solid var(--borda);
+}
+
+.grupo-galpao-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.grupo-galpao-topo h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.grupo-galpao-topo h3 i {
+  color: var(--texto-fraco);
+  font-size: 18px;
+}
+
+.grupo-galpao-acoes { display: flex; gap: 7px; }
+
+.aviso-linha {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (max-width: 680px) {
+  .grupo-galpao-topo { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .filtro-galpoes { margin-left: -16px; margin-right: -16px; padding: 0 16px 3px; }
+}
+
+@media (max-width: 680px) {
+  .kpis { grid-template-columns: minmax(0, 1fr); }
+  .grupo-galpao-acoes { flex-wrap: wrap; }
+}

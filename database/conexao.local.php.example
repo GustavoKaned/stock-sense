@@ -1,0 +1,9 @@
+<?php
+
+// Copie este arquivo para conexao.local.php e preencha os dados do servidor.
+// O arquivo conexao.local.php esta no .gitignore e nao deve ser commitado.
+
+$host    = "SEU_HOST";
+$usuario = "SEU_USUARIO";
+$senha   = "SUA_SENHA";
+$banco   = "SEU_BANCO";
